@@ -1,0 +1,23 @@
+server:
+  port: 8222
+
+spring:
+  application:
+    name: api-gateway
+  main:
+    banner-mode: "off"
+  cloud:
+    gateway:
+      routes:
+        - id: customer-service-route
+          uri: lb://customer-service
+          predicates:
+            - Path=/api/customers/**
+        - id: account-service-route
+          uri: lb://account-service
+          predicates:
+            - Path=/api/accounts/**
+        - id: transaction-service-route
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/transactions/**
